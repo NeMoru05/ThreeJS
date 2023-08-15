@@ -1,24 +1,34 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // Update the import path for newer Three.js versions
 
+// Set up the scene, camera, and renderer
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(   window.innerWidth/1,
-                    window.innerHeight/1 );
-document.body.appendChild( renderer.domElement );
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+// Set up the camera position
+camera.position.z = 5; // Move the camera back along the Z-axis
 
-camera.position.z = 3;
+// Load the glTF model using the GLTFLoader
+const loader = new GLTFLoader();
+loader.load('denah-clinik.glb', (gltf) => {
+    const model = gltf.scene;
+    scene.add(model);
 
-function animate() {
-	requestAnimationFrame( animate );
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-	renderer.render( scene, camera );
-}
-animate();
+    // Set up lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(1, 1, 1);
+    scene.add(directionalLight);
+
+    // Start rendering the scene
+    const animate = () => {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    };
+    animate();
+});
