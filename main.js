@@ -1,13 +1,15 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { ArcballControls } from 'three/addons/controls/ArcballControls.js'; // Correct the import path
+import { ArcballControls } from 'three/addons/controls/ArcballControls.js';
+import { CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer'; // Correct the import path
 
 // Set up the scene, camera, and renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+renderer.setClearColor(0x000000, 0);
 
 // Set up the camera position
 camera.position.z = 5;
@@ -17,7 +19,7 @@ const archBallControls = new ArcballControls(camera, renderer.domElement); // Co
 
 // Load the glTF model using the GLTFLoader
 const loader = new GLTFLoader();
-loader.load('denah-clinik.glb', (gltf) => {
+loader.load('test-model.glb', (gltf) => {
     const model = gltf.scene;
     scene.add(model);
 
