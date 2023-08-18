@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { ArcballControls } from 'three/addons/controls/ArcballControls.js';
-import { CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer'; // Correct the import path
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; // Correct the import path
 
 // Set up the scene, camera, and renderer
 const scene = new THREE.Scene();
@@ -14,12 +13,12 @@ renderer.setClearColor(0x000000, 0);
 // Set up the camera position
 camera.position.z = 5;
 
-// Initialize ArchballControls
-const archBallControls = new ArcballControls(camera, renderer.domElement); // Correct the class name
+// Initialize OrbitControls
+const orbitControls = new OrbitControls(camera, renderer.domElement); 
 
 // Load the glTF model using the GLTFLoader
 const loader = new GLTFLoader();
-loader.load('test-model.glb', (gltf) => {
+loader.load('testing/scene.gltf', (gltf) => {
     const model = gltf.scene;
     scene.add(model);
 
@@ -35,8 +34,8 @@ loader.load('test-model.glb', (gltf) => {
     const animate = () => {
         requestAnimationFrame(animate);
 
-        // Update ArchBall controls
-        archBallControls.update();
+        // Update OrbitControls
+        orbitControls.update();
 
         // Render the scene
         renderer.render(scene, camera);
