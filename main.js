@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; // Correct the import path
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js' // Correct the import path
 
 // Set up the scene, camera, and renderer
 const scene = new THREE.Scene();
@@ -18,7 +19,7 @@ const orbitControls = new OrbitControls(camera, renderer.domElement);
 
 // Load the glTF model using the GLTFLoader
 const loader = new GLTFLoader();
-loader.load('testing/scene.gltf', (gltf) => {
+loader.load('model.gltf', (gltf) => {
     const model = gltf.scene;
     scene.add(model);
 
